@@ -1,7 +1,7 @@
 Dynamic Generic Programming with Virtual Concepts
 ================
 
-This is a research project aimed at introducing <u>language support for type erasure in C++</u>.
+This is a research project aimed at introducing _language support for type erasure in C++_.
 
 The "draft" folder currently contains a version of what is meant to become a proposal for standardization - or a larger document to be referred from such a proposal. The "code" folder contains examples included in (or referenced from) the draft.
 
