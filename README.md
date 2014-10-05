@@ -7,8 +7,6 @@ The `draft` folder currently contains a version of what is meant to become a pro
 
 The draft currently contains a brief introduction and a section that provides an overview of the existing solutions for Dynamic Generic Programming (DGP) in C++.
 
-There is a dedicated thread on std-proposals: https://groups.google.com/a/isocpp.org/forum/#!topic/std-proposals/4gEt2OBbSQM.
-
-Any feedback is most welcome.
+There is a [dedicated thread on std-proposals](https://groups.google.com/a/isocpp.org/forum/#!topic/std-proposals/4gEt2OBbSQM.) for discussion. Any feedback is most welcome.
 
 Andy
