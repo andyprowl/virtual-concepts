@@ -121,11 +121,11 @@ int main()
 {
     Rectangle r{{1.0, 2.0}, 5.0, 6.0};
 
-    ShapeRef s{std::ref(r)}; // MAKE THIS WORK!!!
+    ShapeRef s{std::ref(r)};
 
-    std::cout << s.get_area() << std::endl; // PRINTS 30
+    std::cout << s.get_area() << std::endl;
 
     r.set_size(4, 2);
 
-    std::cout << s.get_area() << std::endl; // PRINTS 8
+    std::cout << s.get_area() << std::endl;
 }

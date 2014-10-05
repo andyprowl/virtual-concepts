@@ -1,8 +1,8 @@
 /* =============================================================================== */
 /* Dynamic Generic Programming                                                     */
 /* =============================================================================== */
-/* Test project using the Adobe.Poly library                                       */
-/* (http://sourceforge.net/projects/adobe-source/)                                 */
+/* Test project using the Boost.TypeErasure library                                */
+/* (http://www.boost.org/doc/libs/1_56_0/doc/html/boost_typeerasure.html)          */
 /*                                                                                 */
 /* Tested with Boost 1.56                                                          */
 /* =============================================================================== */
@@ -42,54 +42,22 @@ private:
     double _height;
 };
 
-#include <adobe/poly.hpp>
+#include <boost/type_erasure/any.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/type_erasure/member.hpp>
 
-struct ShapeInternal : adobe::poly_copyable_interface
-{
-    virtual double get_area_internal() const = 0;
-    virtual double get_perimeter_internal() const = 0;
-};
+namespace erasure = boost::type_erasure;
 
-template<typename T>
-struct ShapeHolderRef;
+BOOST_TYPE_ERASURE_MEMBER((has_get_area), get_area)
+BOOST_TYPE_ERASURE_MEMBER((has_get_perimeter), get_perimeter)
 
-template<typename T>
-struct ShapeHolderRef<std::reference_wrapper<T>>
-    : adobe::optimized_storage_type<std::reference_wrapper<T>, ShapeInternal>::type
-{
-    using base_t = typename adobe::optimized_storage_type<
-        std::reference_wrapper<T>,
-        ShapeInternal>::type;
+using ShapeRequirements = boost::mpl::vector<
+    erasure::copy_constructible<>,
+    has_get_area<double(), erasure::_self const>,
+    has_get_perimeter<double(), erasure::_self const>,
+    erasure::relaxed>;
 
-    ShapeHolderRef(std::reference_wrapper<T> x) : base_t{std::move(x)} { }
-
-    ShapeHolderRef(adobe::move_from<ShapeHolderRef> x)
-        : base_t{adobe::move_from<base_t>{x.source}} { }
-
-    virtual double get_area_internal() const override
-    { return this->get().get().get_area(); }
-
-    virtual double get_perimeter_internal() const override
-    { return this->get().get().get_perimeter(); }
-};
-
-struct ErasedShapeRef : adobe::poly_base<ShapeInternal, ShapeHolderRef>
-{
-    using base_t = adobe::poly_base<ShapeInternal, ShapeHolderRef>;
-
-    using base_t::base_t;
-
-    ErasedShapeRef(adobe::move_from<ErasedShapeRef> x)
-        : base_t(adobe::move_from<base_t>(x.source)) { }
-
-    double get_area() const
-    { return this->interface_ref().get_area_internal(); }
-
-    double get_perimeter() const
-    { return this->interface_ref().get_perimeter_internal(); }
-};
-
-using ShapeRef = adobe::poly<ErasedShapeRef>;
+using ShapeRef = erasure::any<ShapeRequirements, erasure::_self&>;
 
 #include <vector>
 #include <iostream>
@@ -98,7 +66,7 @@ int main()
 {
     Rectangle r{{1.0, 2.0}, 5.0, 6.0};
 
-    ShapeRef s{std::ref(r)};
+    ShapeRef s{r};
 
     std::cout << s.get_area() << std::endl;
 
