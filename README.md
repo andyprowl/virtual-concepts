@@ -12,6 +12,8 @@ The draft currently contains:
 * A section stating the design goals for this project;
 * A section demonstrating some practical applications of virtual concepts.
 
+The bibliography is available in a separate file inside the `draft` folder.
+
 There is a [dedicated thread on std-proposals](https://groups.google.com/a/isocpp.org/forum/#!topic/std-proposals/4gEt2OBbSQM.) for discussion. Any feedback is most welcome.
 
 Andy
