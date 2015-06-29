@@ -14,6 +14,6 @@ The draft currently contains:
 
 The bibliography is available in a separate file inside the `draft` folder.
 
-There is a [dedicated thread on std-proposals](https://groups.google.com/a/isocpp.org/forum/#!topic/std-proposals/4gEt2OBbSQM.) for discussion. Any feedback is most welcome.
+There is a [dedicated thread on std-proposals](https://groups.google.com/a/isocpp.org/d/msg/std-proposals/4gEt2OBbSQM/dFr3Go95iZgJ) for discussion. Any feedback is most welcome.
 
 Andy
